@@ -1,10 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:store_app/models/product_model.dart';
+
 class CustomCard extends StatelessWidget {
-  const CustomCard({
-    super.key,
-  });
+  CustomCard({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +21,12 @@ class CustomCard extends StatelessWidget {
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
               blurRadius: 40,
-              color: Colors.grey.withOpacity(0.4),
+              color: Colors.grey.withOpacity(0.5),
               spreadRadius: 0,
-              offset: Offset(1, 1),
+              offset: const Offset(1, 1),
             ),
           ]),
-          child: const Card(
+          child: Card(
             elevation: 10,
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -32,8 +38,8 @@ class CustomCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'HandBag LV',
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                    product.title.substring(0, 12),
+                    style: TextStyle(color: Colors.grey, fontSize: 18),
                   ),
                   SizedBox(
                     height: 5,
@@ -42,8 +48,11 @@ class CustomCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        r'$255',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        r'$' '${product.price.toString()}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
                       ),
                       Icon(
                         FontAwesomeIcons.solidHeart,
@@ -58,10 +67,11 @@ class CustomCard extends StatelessWidget {
         ),
         Positioned(
           right: 10,
-          top: -85,
+          top: -60,
           child: Image.network(
-            'https://i.pinimg.com/564x/ac/60/13/ac6013af80f994efb09bb0879a45f6f2.jpg',
+            product.image,
             height: 120,
+            width: 100,
           ),
         ),
       ],
